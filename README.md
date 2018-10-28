@@ -6,7 +6,7 @@ Fuente: [ List of countries by suicide rate](https://en.wikipedia.org/wiki/List_
 
 # Integrantes
 
-Carlos Botero
+Carlos Alberto Botero Vélez
 
 # Archivos
 `DatosSuicidioPais.py`:  Clase que representa la estructura de los datos por registro de suicidio.
