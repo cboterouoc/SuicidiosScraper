@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from DatosSuicidioPais import DatosSuicidioPais
+from urllib.request import urlretrieve
+import os
 
 # Representa la URL de trabajo:
 URL = 'https://en.wikipedia.org/wiki/List_of_countries_by_suicide_rate'
@@ -19,7 +21,6 @@ def main():
     5. Limpiar el nombre de país para remover caracteres especiales o paréntesis innecesarios
     6. Crear el data frame
     7. Crear el archivo CSV
-    :return:
     """
     respuesta = requests.get(URL)
 
@@ -62,6 +63,7 @@ def crear_dato_suicidos_pais(campos):
     """
     ranking = int(campos[0].text)
     pais = limpiar_pais(campos[1].text)
+    descargar_bandera(campos[1].find('img')['src'], pais)
     ambos_sexos = float(campos[2].text)
     ranking_masculino = int(campos[3].text)
     masculino = float(campos[4].text)
@@ -89,6 +91,15 @@ def limpiar_pais(pais):
         pais = pais[0:-1]
 
     return pais
+
+
+def descargar_bandera(img_url, pais):
+    """
+    Descarga las banderas de cada país.
+    :return:
+    """
+    img_url = 'https:{}'.format(img_url)
+    urlretrieve(img_url, 'banderas/{}.png'.format(pais))
 
 
 def crear_dataframe(datos_suicidos_paises):
